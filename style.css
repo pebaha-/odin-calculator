@@ -1,0 +1,25 @@
+.container {
+    width: 400px;
+}
+
+.buttons_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.button {
+    width: 100px;
+    height: 100px;
+    font-size: 50px;
+    box-sizing: border-box;
+}
+
+.result {
+    font-size: 50px;
+    text-align: right;
+}
+
+div {
+    /* Border is currently making the buttons not align properly */
+    /*border: 1px solid black;*/
+}
