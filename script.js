@@ -12,3 +12,19 @@ function Calculator() {
         return this.methods[operator](a, b)
     };
 }
+
+const buttonContainer = document.querySelector('.button-container');
+buttonContainer.addEventListener('click', (event) => {
+    const target = event.target;
+    const buttonClicked = target.innerText;
+    const classList = event.target.classList;
+    const display = document.querySelector('.display');
+
+    if (classList.contains('button-num')) {
+        display.innerText += buttonClicked;
+
+    }
+    if (classList.contains('button-c')) {
+        display.innerText = '';
+    }
+});

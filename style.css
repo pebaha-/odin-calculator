@@ -2,12 +2,12 @@
     width: 400px;
 }
 
-.buttons_container {
+.button-container {
     display: flex;
     flex-wrap: wrap;
 }
 
-.button {
+button {
     width: 100px;
     height: 100px;
     font-size: 50px;
@@ -18,7 +18,7 @@
     line-height: 100px;
 }
 
-.result {
+.display {
     height: 100px;
     padding-right: 25px;
     line-height: 100px;
