@@ -18,6 +18,12 @@ let firstNumber = '';
 let secondNumber = '';
 let operator = '';
 
+function clearState() {
+    firstNumber = '';
+    secondNumber = '';
+    operator = '';
+}
+
 const buttonContainer = document.querySelector('.button-container');
 buttonContainer.addEventListener('click', (event) => {
     const target = event.target;
@@ -31,9 +37,7 @@ buttonContainer.addEventListener('click', (event) => {
 
     if (classList.contains('button-c')) {
         display.innerText = '';
-        firstNumber = '';
-        secondNumber = '';
-        operator = '';
+        clearState();
     }
 
     if (classList.contains('button-op')) {
@@ -47,11 +51,12 @@ buttonContainer.addEventListener('click', (event) => {
     }
 
     if (classList.contains('button-eq')) {
+        if (firstNumber === '' || operator === '') {
+            return;
+        }
         secondNumber = parseFloat(display.innerText);
-        const result = calc.calculate(firstNumber, operator, secondNumber);
+        const result = +calc.calculate(firstNumber, operator, secondNumber).toFixed(10);
         display.innerText = result;
-        operator = '';
-        firstNumber = result;
-        secondNumber = '';
+        clearState();
     }
 });
