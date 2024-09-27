@@ -65,7 +65,7 @@ buttonContainer.addEventListener('click', (event) => {
     }
 
     if (classList.contains('button-eq')) {
-        if (firstNumber === '' || currentOperator === '') {
+        if (firstNumber === '' || secondNumber === '' || currentOperator === '') {
             return;
         }
         firstNumber = parseFloat(firstNumber);
