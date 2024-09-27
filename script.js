@@ -34,6 +34,15 @@ function isDivisionByZero(operator, secondNumber) {
     return false;
 }
 
+function assignNumber(number, buttonValue) {
+    if (buttonValue === '.') {
+        number += number.includes('.') ? '' : buttonValue;
+    } else {
+        number += buttonValue;
+    }
+    return number;
+}
+
 const buttonContainer = document.querySelector('.button-container');
 buttonContainer.addEventListener('click', (event) => {
     const target = event.target;
@@ -43,10 +52,10 @@ buttonContainer.addEventListener('click', (event) => {
 
     if (classList.contains('button-num')) {
         if (currentOperator !== '') {
-            secondNumber += buttonValue;
+            secondNumber = assignNumber(secondNumber, buttonValue);
             display.innerText = secondNumber;
         } else {
-            firstNumber += buttonValue;
+            firstNumber = assignNumber(firstNumber, buttonValue);
             display.innerText = firstNumber;
         }
     }
