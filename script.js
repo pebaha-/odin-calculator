@@ -16,12 +16,14 @@ function Calculator() {
 let calc = new Calculator;
 let firstNumber = '';
 let secondNumber = '';
-let operator = '';
+let currentOperator = '';
+let previousOperator = '';
 
 function clearState() {
     firstNumber = '';
     secondNumber = '';
-    operator = '';
+    currentOperator = '';
+    previousOperator = '';
 }
 
 const buttonContainer = document.querySelector('.button-container');
@@ -32,7 +34,13 @@ buttonContainer.addEventListener('click', (event) => {
     const display = document.querySelector('.display');
 
     if (classList.contains('button-num')) {
-        display.innerText += buttonValue;
+        if (currentOperator !== '') {
+            secondNumber += buttonValue;
+            display.innerText = secondNumber;
+        } else {
+            firstNumber += buttonValue;
+            display.innerText = firstNumber;
+        }
     }
 
     if (classList.contains('button-c')) {
@@ -41,22 +49,30 @@ buttonContainer.addEventListener('click', (event) => {
     }
 
     if (classList.contains('button-op')) {
-        if (firstNumber === '') {
-            firstNumber = parseFloat(display.innerText);
-        } else {
-            secondNumber = parseFloat(display.innerText);
+        currentOperator = buttonValue;
+        if (firstNumber !== '' && secondNumber !== '' && previousOperator !== '') {
+            firstNumber = parseFloat(firstNumber);
+            secondNumber = parseFloat(secondNumber);
+            const result = +calc.calculate(firstNumber, previousOperator, secondNumber).toFixed(10);
+            display.innerText = result;
+            firstNumber = result;
+            secondNumber = '';
+            previousOperator = '';
         }
-        operator = buttonValue;
-        display.innerText = '';
+        if (currentOperator !== '') {
+            previousOperator = currentOperator;
+        }
     }
 
     if (classList.contains('button-eq')) {
-        if (firstNumber === '' || operator === '') {
+        if (firstNumber === '' || currentOperator === '') {
             return;
         }
+        firstNumber = parseFloat(firstNumber);
         secondNumber = parseFloat(display.innerText);
-        const result = +calc.calculate(firstNumber, operator, secondNumber).toFixed(10);
+        const result = +calc.calculate(firstNumber, currentOperator, secondNumber).toFixed(10);
         display.innerText = result;
         clearState();
+        firstNumber = result;
     }
 });
