@@ -19,11 +19,19 @@ let secondNumber = '';
 let currentOperator = '';
 let previousOperator = '';
 
-function clearState() {
+function clearVariables() {
     firstNumber = '';
     secondNumber = '';
     currentOperator = '';
     previousOperator = '';
+}
+
+function isDivisionByZero(operator, secondNumber) {
+    if (operator === '/' && parseFloat(secondNumber) === 0) {
+        alert("Division by zero not allowed!");
+        return true;
+    }
+    return false;
 }
 
 const buttonContainer = document.querySelector('.button-container');
@@ -45,12 +53,17 @@ buttonContainer.addEventListener('click', (event) => {
 
     if (classList.contains('button-c')) {
         display.innerText = '';
-        clearState();
+        clearVariables();
     }
 
     if (classList.contains('button-op')) {
         currentOperator = buttonValue;
         if (firstNumber !== '' && secondNumber !== '' && previousOperator !== '') {
+            if (isDivisionByZero(previousOperator, secondNumber)) {
+                clearVariables();
+                display.innerText = '';
+                return;
+            }
             firstNumber = parseFloat(firstNumber);
             secondNumber = parseFloat(secondNumber);
             const result = +calc.calculate(firstNumber, previousOperator, secondNumber).toFixed(10);
@@ -68,11 +81,16 @@ buttonContainer.addEventListener('click', (event) => {
         if (firstNumber === '' || secondNumber === '' || currentOperator === '') {
             return;
         }
+        if (isDivisionByZero(previousOperator, secondNumber)) {
+            clearVariables();
+            display.innerText = '';
+            return;
+        }
         firstNumber = parseFloat(firstNumber);
         secondNumber = parseFloat(display.innerText);
         const result = +calc.calculate(firstNumber, currentOperator, secondNumber).toFixed(10);
         display.innerText = result;
-        clearState();
+        clearVariables();
         firstNumber = result;
     }
 });
