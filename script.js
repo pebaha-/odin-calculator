@@ -50,6 +50,16 @@ buttonContainer.addEventListener('click', (event) => {
     const classList = target.classList;
     const display = document.querySelector('.display');
 
+    if (classList.contains('button-back')) {
+        if (currentOperator !== '') {
+            secondNumber = secondNumber.slice(0, -1);
+            display.innerText = secondNumber;
+        } else {
+            firstNumber = firstNumber.slice(0, -1);
+            display.innerText = firstNumber;
+        }
+    }
+
     if (classList.contains('button-num')) {
         if (currentOperator !== '') {
             secondNumber = assignNumber(secondNumber, buttonValue);
